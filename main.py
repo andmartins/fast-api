@@ -6,19 +6,24 @@ Endpoints disponíveis:
 - `/items/{item_id}` : Retorna um item baseado no ID informado.
 """
 
-from typing import Union
+from typing import Optional, Dict, Any
 from fastapi import FastAPI
 
 app = FastAPI()
 
 
 @app.get("/")
-def read_root():
-    """Retorna uma mensagem de boas-vindas."""
+async def read_root():
     return {"Hello": "World"}
 
 
 @app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    """Retorna uma mensagem de boas-vindas."""
-    return {"item_id": item_id, "q": q}
+async def read_item(
+    item_id: int,
+    q: Optional[str] = None
+) -> Dict[str, Any]:
+    """Retorna um item baseado no ID informado."""
+    return {
+        "item_id": item_id,
+        "q": q
+    }
